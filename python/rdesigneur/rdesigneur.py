@@ -290,11 +290,17 @@ class rdesigneur:
             return True
         # Maybe the proto is already in memory
         # Avoid relative file paths going toward root
-        print("protoVec: ", protoVec )
         if protoVec[0][:3] != "../":
             if moose.exists( protoVec[0] ):
-                moose.copy( protoVec[0], '/library/' + protoVec[1] )
-                return True
+                copyDest = '/library/%s' % protoVec[1]
+                moose.Neuron( copyDest )
+                try:
+                    moose.copy( protoVec[0], copyDest )
+                    return True
+                except Exception as e:
+                    print( '[ERROR] Could not copy %s to %s' % ( protoVec[0], copyDest ) )
+                    print( '\t Error was %s' % e)
+                    quit( )
             if moose.exists( '/library/' + protoVec[0] ):
                 #moose.copy('/library/' + protoVec[0], '/library/', protoVec[1])
                 print('renaming /library/' + protoVec[0] + ' to ' + protoVec[1])
