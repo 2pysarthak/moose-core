@@ -1,8 +1,9 @@
+import sys
 import moose
+print( '[INFO] Using moose from %s' % moose.__file__ )
 import pylab
 # import numpy as np
 import numpy
-import sys
 import matplotlib.pyplot as plt
 from matplotlib import cm
 import rdesigneur as rd
@@ -229,7 +230,6 @@ def makePassiveSoma( name, length, diameter ):
         dy = segmentLength
         dia = dia - 1.0
         name = '/library/cell/dend' + str( i )
-
         # dend = makeCompt( name, dend, 0.0, segmentLength, segmentDia )
         RM = 1.0
         RA = 1.0

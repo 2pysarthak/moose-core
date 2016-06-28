@@ -197,7 +197,8 @@ class rdesigneur:
         else:
             moose.copy( self.elecid, self.model, 'elec' )
             self.elecid = moose.element( self.model.path + '/elec' )
-            self.elecid.buildSegmentTree() # rebuild: copy has happened.
+            if isinstance( self.elecid, moose.Neuron ):
+                self.elecid.buildSegmentTree() # rebuild: copy has happened.
         if hasattr( self, 'chemid' ):
             self.validateChem()
             if self.stealCellFromLibrary:
@@ -293,9 +294,8 @@ class rdesigneur:
         if protoVec[0][:3] != "../":
             if moose.exists( protoVec[0] ):
                 copyDest = '/library/%s' % protoVec[1]
-                moose.Neuron( copyDest )
                 try:
-                    moose.copy( protoVec[0], copyDest )
+                    moose.copy( protoVec[0], '/library', protoVec[1] )
                     return True
                 except Exception as e:
                     print( '[ERROR] Could not copy %s to %s' % ( protoVec[0], copyDest ) )
@@ -343,7 +343,9 @@ class rdesigneur:
                 self.elecid = moose.element( '/library/' + i[1] )
             else:
                 self._loadElec( i[0], i[1] )
-            self.elecid.buildSegmentTree()
+
+            if isinstance( self.elecid, moose.Neuron):
+                self.elecid.buildSegmentTree()
 
     def buildSpineProto( self ):
         for i in self.spineProtoList:
