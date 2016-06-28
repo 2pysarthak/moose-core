@@ -290,6 +290,7 @@ class rdesigneur:
             return True
         # Maybe the proto is already in memory
         # Avoid relative file paths going toward root
+        print("protoVec: ", protoVec )
         if protoVec[0][:3] != "../":
             if moose.exists( protoVec[0] ):
                 moose.copy( protoVec[0], '/library/' + protoVec[1] )
