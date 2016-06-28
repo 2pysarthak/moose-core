@@ -12,7 +12,8 @@ set(PYMOOSE_SRCS
     )
 add_library( _moose MODULE ${PYMOOSE_SRCS} )
 
-set(PYMOOSE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/python/moose")
+#set(PYMOOSE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/python/moose")
+set(PYMOOSE_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/python/moose")
 
 find_package( PythonInterp REQUIRED )
 
